@@ -1,11 +1,13 @@
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
 # file of the given name existing.
-.PHONY: proposal.pdf all clean
+TYPE := dissertation
+
+.PHONY: $(TYPE).pdf all clean
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: proposal.pdf
+all: $(TYPE).pdf
 
 # CUSTOM BUILD RULES
 
@@ -29,8 +31,8 @@ all: proposal.pdf
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-proposal.pdf: proposal.tex
-	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make proposal.tex
+$(TYPE).pdf: $(TYPE).tex
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(TYPE).tex
 
 clean:
 	latexmk -CA
